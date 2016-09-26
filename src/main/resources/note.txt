@@ -1,0 +1,22 @@
+>>> 配置文件mybatis-config.xml
+
+
+
+
+>>> MyBatis 与 SpringBoot 集成
+    1. 将mybatis-config.xml 中的内容，转换到 MyBatisConfig.java 中
+    2. mybatis-config.xml中的settings配置，暂不知如何配置
+    3. 数据库相关配置在 application.properties
+    4. 之前通过MyBatisSqlSessionFactory.java 获取sqlSessionFactory和sqlSession（还需手动close）（SqlSession对象实例不是线程安全的，并且不被共享），
+        然后在Service中获取 mapper，进而操作数据库
+    5. 如今，通过
+
+
+
+>>> 数据表中的字段(phone) 若对应 实体类中的 java对象(PhoneNumber)
+    使用类型处理器TypeHandler
+    1. 在com.xin.typehandler包 中新建PhoneTypeHandler.java
+    2. 在配置类MyBatisConfig.java 中添加 bean.setTypeHandlersPackage("com.xin.typehandler");
+>>> 数据表中的字段(addr_id) 若对应 另一张表(address)的主键，且对应实体类中的java对象(Address)
+    使用@One 和 @Many 注解
+    详见StudentMapper
